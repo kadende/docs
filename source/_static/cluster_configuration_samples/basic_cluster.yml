@@ -1,0 +1,39 @@
+version: "0.0.1"
+name: basic_cluster
+groups:
+  group1:
+    size: 2
+    resourcePlugin:
+      name: aws
+      version: latest
+    resourceProperties:
+      key: mwas
+      instanceType: t2.small
+      image: debian
+  group2:
+    sub-group1:
+      size: 2
+      resourcePlugin:
+        name: gcd
+        version: 0.0.1
+      resourceProperties:
+        key: mwas
+        instanceType: t2.micro
+        image: amazonlinux
+    sub-group2:
+      size: 3
+      resourcePlugin:
+        name: digitalOcean
+        version: latest
+      resourceProperties:
+        instanceType: standard
+        memory: 1
+        sshKey: mwas
+  customDatacenter:
+    size: 2
+    resourcePlugin:
+      name: my-custom-plugin
+      version: 0.0.1
+      url: https://github.com/mwaaas/kadende-provider-file/releases/download/0.0.1/plugin.so
+    resourceProperties:
+      instanceSize: abcd
